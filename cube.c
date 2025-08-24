@@ -4,10 +4,10 @@
 #include <math.h>
 #include <unistd.h>
 
-#define K1 25
+#define K1 160
 #define K2 5
-#define SCREEN_WIDTH 100
-#define SCREEN_HEIGHT 30
+#define SCREEN_WIDTH 500
+#define SCREEN_HEIGHT 150
 
 void calculate_surface(char *buffer, double x, double y, double z, double A, double B, double C, int normal){
 	double sinA = sin(A), sinB = sin(B), sinC = sin(C);
@@ -16,8 +16,8 @@ void calculate_surface(char *buffer, double x, double y, double z, double A, dou
 	double rx = cosC * (x * cosB - sinB * (y * sinA + z * cosA)) - sinC * (y * cosA - z * sinA);
 	double ry = sinC * (x * cosB - sinB * (y * sinA + z * cosA)) + cosC * (y * cosA - z * sinA);
 	double rz = K2 + x * sinB + cosB * (y * sinA + z * cosA);
-	int xp = (int) (50 + rx * K1 / rz);
-	int yp = (int) (15 + ry * K1 / rz);
+	int xp = (int) (SCREEN_WIDTH/2 + rx * K1 / rz);
+	int yp = (int) (SCREEN_HEIGHT/2 + ry * K1 / rz);
 	if (normal == 1) luminance = sinB;
 	else if (normal == -1) luminance = -sinB;
 	else if (normal == 2) luminance = sinA * cosB;
